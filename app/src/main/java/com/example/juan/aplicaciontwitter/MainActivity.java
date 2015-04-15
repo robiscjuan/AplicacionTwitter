@@ -1,8 +1,12 @@
 package com.example.juan.aplicaciontwitter;
 
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import io.fabric.sdk.android.Fabric;
+
+import java.util.List;
 import java.util.Locale;
 
 import android.support.v7.app.ActionBarActivity;
@@ -19,13 +23,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Intent;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.services.StatusesService;
 import com.twitter.sdk.android.tweetui.TweetView;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
@@ -95,6 +104,27 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                                     .setText(mSectionsPagerAdapter.getPageTitle(i))
                                     .setTabListener(MainActivity.this));
                 }
+
+                //Después de la creación de tabs
+
+                TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient();
+// Can also use Twitter directly: Twitter.getApiClient()
+                StatusesService statusesService = twitterApiClient.getStatusesService();
+                statusesService.homeTimeline(10,null,null,null,null,null,false,new Callback<List<Tweet>>() {
+                    @Override
+                    public void success(Result<List<Tweet>> listResult) {
+                        //ListView listTweets = (ListView)  mSectionsPagerAdapter.getRegistrerFragment(mViewPager.getCurrentItem().findViewById(R.id.listTweets);
+
+                        ListView listTweets = (ListView)  mSectionsPagerAdapter.getRegistrerFragment(mViewPager.getCurrentItem()).getView().findViewById(R.id.listTweets);
+                        listTweets.setAdapter(new CustomTweetAdapter(getApplicationContext(), R.layout.row_tweet, listResult.data));
+                    }
+
+                    @Override
+                    public void failure(TwitterException e) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -158,12 +188,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-
+        private PlaceholderFragment[] arrayFragment = new PlaceholderFragment[3];
+        private int numFragment;
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            arrayFragment[numFragment] = PlaceholderFragment.newInstance(position + 1);
+            numFragment++;
+            return arrayFragment[numFragment-1];
         }
 
         @Override
@@ -184,6 +217,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                     return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
+        }
+
+        public Fragment getRegistrerFragment(int position){
+            return arrayFragment[position];
         }
     }
 
@@ -215,7 +252,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
             return rootView;
         }
     }
