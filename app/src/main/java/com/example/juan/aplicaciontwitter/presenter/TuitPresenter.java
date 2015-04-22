@@ -7,9 +7,14 @@ import com.example.juan.aplicaciontwitter.R;
 import com.example.juan.aplicaciontwitter.model.Tuit;
 import com.example.juan.aplicaciontwitter.view.CustomTweetAdapter;
 import com.example.juan.aplicaciontwitter.view.MainActivity;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.services.StatusesService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +29,25 @@ public class TuitPresenter {
         this.vista = mainActivityVista;
     }
     public void presenterTweetsTimeline(){
+        StatusesService statusesService = Twitter.getApiClient().getStatusesService();
+        statusesService.homeTimeline(10,null,null,null,null,null,false,new Callback<List<Tweet>>() {
+            @Override
+            public void success(Result<List<Tweet>> listResult) {
+                Log.e("Timeline con éxito","");
+                modelo.setTimeline(listResult.data);
+                vista.mostrarTimeline(modelo.getTimeline());
+                //  final Result<List<Tweet>> listaTweets = listResult;
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                Log.e("Timeline con fracaso","");
+                //  final Result<List<Tweet>> listaTweets = null;
+                final List<Tweet> listaTweets = null;
+            }
+        });
+
         Log.e("Se va a usar la posicion"," 1");
-        ListView listTweets = (ListView)  vista.getmSectionsPagerAdapter().getRegistrerFragment(1).getView().findViewById(R.id.listTweets);
-        listTweets.setAdapter(new CustomTweetAdapter(vista.getApplicationContext(), R.layout.row_tweet,FALLO.getTimeline()));
+
     }
 }

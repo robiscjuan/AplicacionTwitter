@@ -20,35 +20,24 @@ import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.core.services.StatusesService;
 import com.example.juan.aplicaciontwitter.view.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by Juan on 19/04/2015.
  */
-public class Tuit extends Activity {
+public class Tuit  {
    private  List<Tweet> listaTweets;
-    public List<Tweet> getTimeline(){
-        // Can also use Twitter directly: Twitter.getApiClient()
-          Log.e("ses",Twitter.getSessionManager().getActiveSession().getUserName());
+    public Tuit(){
+        listaTweets = null;
+    }
 
-        TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient();
-        StatusesService statusesService = Twitter.getApiClient().getStatusesService();
-        Log.e("Timeline","AQUÍ ESTOY");
-            statusesService.homeTimeline(10,null,null,null,null,null,false,new Callback<List<Tweet>>() {
-                @Override
-                public void success(Result<List<Tweet>> listResult) {
-                    Log.e("Timeline con éxito","");
-                    Tuit.this.listaTweets = listResult.data;
-                  //  final Result<List<Tweet>> listaTweets = listResult;
-                }
+    public void setTimeline(List<Tweet> listaTweets){
+        this.listaTweets = listaTweets;
+    }
+    public List<Tweet> getTimeline()  {
 
-                @Override
-                public void failure(TwitterException e) {
-                    Log.e("Timeline con fracaso","");
-                  //  final Result<List<Tweet>> listaTweets = null;
-                   final List<Tweet> listaTweets = null;
-                }
-            });
         return listaTweets;
     }
 }

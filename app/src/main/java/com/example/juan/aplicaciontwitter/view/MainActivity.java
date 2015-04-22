@@ -8,11 +8,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.example.juan.aplicaciontwitter.R;
 import com.example.juan.aplicaciontwitter.model.Tuit;
 import com.example.juan.aplicaciontwitter.presenter.MainPresenter;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.core.models.Tweet;
+
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
@@ -83,7 +87,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     }
 
-
+    public void mostrarTimeline(List<Tweet> l){
+        ListView listTweets = (ListView)  getmSectionsPagerAdapter().getRegistrerFragment(1).getView().findViewById(R.id.listTweets);
+        listTweets.setAdapter(new CustomTweetAdapter(getApplicationContext(), R.layout.row_tweet, l));
+    }
     public SectionsPagerAdapter getmSectionsPagerAdapter() {
         return mSectionsPagerAdapter;
     }

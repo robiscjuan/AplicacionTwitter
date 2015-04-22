@@ -14,6 +14,5 @@ public class MainPresenter {
     }
     public void presenterTweetsTimeline(){
         tuitPresenter.presenterTweetsTimeline();
-
     }
 }
