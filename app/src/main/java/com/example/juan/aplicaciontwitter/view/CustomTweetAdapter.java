@@ -1,4 +1,4 @@
-package com.example.juan.aplicaciontwitter;
+package com.example.juan.aplicaciontwitter.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.juan.aplicaciontwitter.R;
 import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.core.models.Tweet;
 
