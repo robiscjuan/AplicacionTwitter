@@ -34,8 +34,8 @@ public class TuitPresenter {
             @Override
             public void success(Result<List<Tweet>> listResult) {
                 Log.e("Timeline con éxito","");
-                modelo.setTimeline(listResult.data);
-                vista.mostrarTimeline(modelo.getTimeline());
+                //modelo.setTimeline(listResult.data);
+                //vista.mostrarTimeline(modelo.getTimeline());
                 //  final Result<List<Tweet>> listaTweets = listResult;
             }
 

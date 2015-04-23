@@ -30,14 +30,10 @@ import java.util.concurrent.Semaphore;
 public class Tuit  {
    private  List<Tweet> listaTweets;
     public Tuit(){
-        listaTweets = null;
+        listaTweets = new ArrayList<Tweet>();
     }
 
-    public void setTimeline(List<Tweet> listaTweets){
-        this.listaTweets = listaTweets;
-    }
     public List<Tweet> getTimeline()  {
-
         return listaTweets;
     }
 }

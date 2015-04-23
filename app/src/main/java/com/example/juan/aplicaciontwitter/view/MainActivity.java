@@ -1,26 +1,28 @@
 package com.example.juan.aplicaciontwitter.view;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
+import java.util.Locale;
+
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.juan.aplicaciontwitter.R;
-import com.example.juan.aplicaciontwitter.model.Tuit;
-import com.example.juan.aplicaciontwitter.presenter.MainPresenter;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.twitter.sdk.android.core.models.Tweet;
 
-import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
-//http://www.htcmania.com/showthread.php?t=772190
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -29,30 +31,26 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    SectionsPagerAdapter mSectionsPagerAdapter;
 
-    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
-    private TwitterLoginButton loginButton;
-    private MainPresenter mainPresenter;
-    //TODO fijarse en el Bundle que se pasa al onCreate, nos servirá para tener la instancia cuando la memoria limpie
-    //Para saber sobre la gestión de Activities  http://expertojava.ua.es/dadm/restringido/android/sesion02-apuntes.html
+    ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Do something with result, which provides a TwitterSession for making API calls
         setContentView(R.layout.activity_main);
+
+
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -65,10 +63,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
-                mainPresenter.presenterTweetsTimeline();
-
             }
-
         });
 
         // For each of the sections in the app, add a tab to the action bar.
@@ -80,24 +75,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             actionBar.addTab(
                     actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(MainActivity.this));
+                            .setTabListener(this));
         }
-
-        mainPresenter = new MainPresenter(this);
-
     }
 
-    public void mostrarTimeline(List<Tweet> l){
-        ListView listTweets = (ListView)  getmSectionsPagerAdapter().getRegistrerFragment(1).getView().findViewById(R.id.listTweets);
-        listTweets.setAdapter(new CustomTweetAdapter(getApplicationContext(), R.layout.row_tweet, l));
-    }
-    public SectionsPagerAdapter getmSectionsPagerAdapter() {
-        return mSectionsPagerAdapter;
-    }
-
-    public ViewPager getmViewPager() {
-        return mViewPager;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,5 +116,5 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
-}
 
+}
