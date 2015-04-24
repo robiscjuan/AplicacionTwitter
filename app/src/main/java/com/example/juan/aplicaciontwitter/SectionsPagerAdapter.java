@@ -1,37 +1,15 @@
-package com.example.juan.aplicaciontwitter.view;
-
-import java.util.Locale;
+package com.example.juan.aplicaciontwitter;
 
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+
+import java.util.Locale;
 
 /**
  * Created by Juan on 22/04/2015.
  */
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
-import android.view.ViewGroup;
-
-import com.example.juan.aplicaciontwitter.R;
-
-import java.util.Locale;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

@@ -1,4 +1,4 @@
-package com.example.juan.aplicaciontwitter.view;
+package com.example.juan.aplicaciontwitter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.juan.aplicaciontwitter.R;
 import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.core.models.Tweet;
 
@@ -18,13 +17,12 @@ import java.util.List;
  * Created by Juan on 14/04/2015.
  */
 public class CustomTweetAdapter extends BaseAdapter {
-    private final Context context;
-    private  int layout;
+    private Context context;
+    private int layout;
     private List<Tweet> tweets;
 
-    public CustomTweetAdapter(Context context, int layout, List<Tweet> tweets) {
-        this.context = context;
-        this.layout = layout;
+    public CustomTweetAdapter(List<Tweet> tweets) {
+        this.layout = R.layout.row_tweet;
         this.tweets = tweets;
     }
 
@@ -57,9 +55,13 @@ public class CustomTweetAdapter extends BaseAdapter {
         //TODO tratar retweets
 
         Picasso.with(this.context).load(tweet.user.profileImageUrl).into(miniImagenPerfil);
-        userScreenName.setText("@"+tweet.user.screenName);
+        userScreenName.setText("@" + tweet.user.screenName);
         userFullName.setText(tweet.user.name);
         tweetText.setText(tweet.text);
         return tweetRow;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }
