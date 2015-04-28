@@ -64,4 +64,7 @@ public class CustomTweetAdapter extends BaseAdapter {
     public void setContext(Context context) {
         this.context = context;
     }
+    public Context getContext(){
+        return this.context;
+    }
 }

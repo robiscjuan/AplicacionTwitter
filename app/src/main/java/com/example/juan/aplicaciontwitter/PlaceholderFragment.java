@@ -1,11 +1,15 @@
 package com.example.juan.aplicaciontwitter;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.juan.aplicaciontwitter.presenter.TweetsSectionPresenter;
 import com.twitter.sdk.android.core.models.Tweet;
@@ -19,7 +23,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -30,7 +34,9 @@ public class PlaceholderFragment extends Fragment {
 
     private CustomTweetAdapter customTweetAdapter;
 
-    private List<Tweet> tweetList;
+    SwipeRefreshLayout swipeView;
+
+    private List tweetList;
 
     public PlaceholderFragment() {
         tweetsSectionPresenter = new TweetsSectionPresenter(this);
@@ -56,6 +62,9 @@ public class PlaceholderFragment extends Fragment {
 
         customTweetAdapter.setContext(getActivity());
 
+        swipeView = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe);
+        swipeView.setOnRefreshListener(this);
+
         ListView listTweets = (ListView) rootView.findViewById(R.id.listTweets);
         listTweets.setAdapter(customTweetAdapter);
 
@@ -69,4 +78,19 @@ public class PlaceholderFragment extends Fragment {
     public void updateView() {
         customTweetAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onRefresh() {
+
+        swipeView.setRefreshing(true);
+        new Handler().post(new Runnable() {
+            @Override public void run() {
+                swipeView.setRefreshing(false);
+                tweetsSectionPresenter.loadData();
+                Toast.makeText(customTweetAdapter.getContext(),"Cargando",Toast.LENGTH_LONG);
+            }
+        });
+    }
+
+
 }

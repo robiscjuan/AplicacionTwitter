@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+//http://stackoverflow.com/questions/22502068/listview-animation-refresh-adapter-android
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
