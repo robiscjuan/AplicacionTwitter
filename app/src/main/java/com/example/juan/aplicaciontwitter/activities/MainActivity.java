@@ -1,4 +1,4 @@
-package com.example.juan.aplicaciontwitter;
+package com.example.juan.aplicaciontwitter.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,6 +8,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.juan.aplicaciontwitter.R;
+import com.example.juan.aplicaciontwitter.util.SectionsPagerAdapter;
 
 //http://stackoverflow.com/questions/22502068/listview-animation-refresh-adapter-android
 

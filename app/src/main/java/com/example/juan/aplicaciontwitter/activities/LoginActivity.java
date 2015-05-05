@@ -1,9 +1,10 @@
-package com.example.juan.aplicaciontwitter;
+package com.example.juan.aplicaciontwitter.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.juan.aplicaciontwitter.R;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;

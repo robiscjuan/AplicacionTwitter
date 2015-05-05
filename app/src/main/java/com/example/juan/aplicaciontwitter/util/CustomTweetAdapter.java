@@ -1,13 +1,13 @@
-package com.example.juan.aplicaciontwitter;
+package com.example.juan.aplicaciontwitter.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.juan.aplicaciontwitter.R;
 import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.core.models.Tweet;
 
@@ -16,29 +16,12 @@ import java.util.List;
 /**
  * Created by Juan on 14/04/2015.
  */
-public class CustomTweetAdapter extends BaseAdapter {
-    private Context context;
+public class CustomTweetAdapter extends CustomMainAdapter {
     private int layout;
-    private List<Tweet> tweets;
 
     public CustomTweetAdapter(List<Tweet> tweets) {
         this.layout = R.layout.row_tweet;
-        this.tweets = tweets;
-    }
-
-    @Override
-    public int getCount() {
-        return this.tweets.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return this.tweets.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return this.tweets.get(position).getId();
+        this.list = tweets;
     }
 
     @Override
@@ -50,7 +33,7 @@ public class CustomTweetAdapter extends BaseAdapter {
         TextView userFullName = (TextView) tweetRow.findViewById(R.id.userFullName);
         TextView tweetText = (TextView) tweetRow.findViewById(R.id.tweetText);
 
-        Tweet tweet = tweets.get(position);
+        Tweet tweet = (Tweet) this.list.get(position);
 
         //TODO tratar retweets
 
@@ -61,10 +44,5 @@ public class CustomTweetAdapter extends BaseAdapter {
         return tweetRow;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
-    public Context getContext(){
-        return this.context;
-    }
+
 }

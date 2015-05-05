@@ -19,8 +19,16 @@ public class TweetsSectionModel {
         return tweetList;
     }
 
-    public void setTweetList(List<Tweet> tweetList) {
+    public void loadTweetList(List<Tweet> tweetList) {
         this.tweetList.clear();
         this.tweetList.addAll(tweetList);
+    }
+
+    public void updateTweetList(List<Tweet> tweetList) {
+        this.tweetList.addAll(0, tweetList);
+    }
+
+    public void loadMoreTweetList(List<Tweet> tweetList) {
+
     }
 }
