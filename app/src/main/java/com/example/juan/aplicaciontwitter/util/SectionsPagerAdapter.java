@@ -35,7 +35,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return FollowSectionFragment.newInstance(position + 1);
-       
+
             case 1:
                 return TweetsSectionFragment.newInstance(position + 1);
 
