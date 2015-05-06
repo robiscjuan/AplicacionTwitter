@@ -1,10 +1,9 @@
-package com.example.juan.aplicaciontwitter.view;
+package com.example.juan.aplicaciontwitter.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,30 +16,12 @@ import java.util.List;
 /**
  * Created by Juan on 14/04/2015.
  */
-public class CustomTweetAdapter extends BaseAdapter {
-    private final Context context;
-    private  int layout;
-    private List<Tweet> tweets;
+public class CustomTweetAdapter extends CustomMainAdapter {
+    private int layout;
 
-    public CustomTweetAdapter(Context context, int layout, List<Tweet> tweets) {
-        this.context = context;
-        this.layout = layout;
-        this.tweets = tweets;
-    }
-
-    @Override
-    public int getCount() {
-        return this.tweets.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return this.tweets.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return this.tweets.get(position).getId();
+    public CustomTweetAdapter(List<Tweet> tweets) {
+        this.layout = R.layout.row_tweet;
+        this.list = tweets;
     }
 
     @Override
@@ -52,14 +33,16 @@ public class CustomTweetAdapter extends BaseAdapter {
         TextView userFullName = (TextView) tweetRow.findViewById(R.id.userFullName);
         TextView tweetText = (TextView) tweetRow.findViewById(R.id.tweetText);
 
-        Tweet tweet = tweets.get(position);
+        Tweet tweet = (Tweet) this.list.get(position);
 
         //TODO tratar retweets
 
         Picasso.with(this.context).load(tweet.user.profileImageUrl).into(miniImagenPerfil);
-        userScreenName.setText("@"+tweet.user.screenName);
+        userScreenName.setText("@" + tweet.user.screenName);
         userFullName.setText(tweet.user.name);
         tweetText.setText(tweet.text);
         return tweetRow;
     }
+
+
 }
