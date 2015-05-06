@@ -54,7 +54,7 @@ public class TweetsSectionPresenter implements MainSectionPresenter {
             @Override
             public void success(Result<List<Tweet>> listResult) {
                 Log.e("updateData con éxito", "");
-                model.loadTweetList(listResult.data);
+                model.updateTweetList(listResult.data);
                 view.updateView();
             }
 

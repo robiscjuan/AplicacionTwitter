@@ -67,8 +67,8 @@ public class MainSectionFragment extends Fragment implements SwipeRefreshLayout.
         new Handler().post(new Runnable() {
             @Override
             public void run() {
+                mainSectionPresenter.updateData();
                 swipeView.setRefreshing(false);
-                mainSectionPresenter.loadData();
                 Toast.makeText(customMainAdapter.getContext(), "Cargando", Toast.LENGTH_LONG).show();
             }
         });
