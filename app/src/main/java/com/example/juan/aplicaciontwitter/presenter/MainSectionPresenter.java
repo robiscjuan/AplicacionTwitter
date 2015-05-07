@@ -1,12 +1,22 @@
 package com.example.juan.aplicaciontwitter.presenter;
 
+import com.example.juan.aplicaciontwitter.fragments.MainSectionFragment;
+
 /**
  * Created by Juan on 22/04/2015.
  */
-public interface MainSectionPresenter {
-    public void loadData(); //Initial
+public abstract class MainSectionPresenter {
+    protected MainSectionFragment view;
 
-    public void updateData(); //Top
+    //Initial
+    public void loadData() {
+    }
 
-    public void loadMoreData(); //Down
+    //Top
+    public void updateData() {
+    }
+
+    //Down
+    public void loadMoreData() {
+    }
 }
