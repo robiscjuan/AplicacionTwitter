@@ -16,9 +16,8 @@ import java.util.List;
 /**
  * Created by Juan on 22/04/2015.
  */
-public class TweetsSectionPresenter implements MainSectionPresenter {
+public class TweetsSectionPresenter extends MainSectionPresenter {
     private TweetsSectionModel model;
-    private MainSectionFragment view;
     private StatusesService statusesService;
 
 

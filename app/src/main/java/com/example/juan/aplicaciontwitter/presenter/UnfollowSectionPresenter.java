@@ -8,12 +8,9 @@ import com.twitter.sdk.android.core.services.StatusesService;
 /**
  * Created by Juan on 22/04/2015.
  */
-public class UnfollowSectionPresenter implements MainSectionPresenter {
+public class UnfollowSectionPresenter extends MainSectionPresenter {
     private UnfollowSectionModel model;
-    //TODO El view podría ir en MainSectionPresenter pero eso haría que la interfaz se cambiara por una clase abstracta
-    private MainSectionFragment view;
     private StatusesService statusesService;
-
 
     public UnfollowSectionPresenter(MainSectionFragment view) {
         model = new UnfollowSectionModel();

@@ -16,26 +16,38 @@ import java.util.List;
 /**
  * Created by Juan on 14/04/2015.
  */
-public class CustomTweetAdapter extends CustomMainAdapter {
-    private int layout;
+public class CustomTweetAdapter extends CustomMainAdapter<Tweet> {
 
     public CustomTweetAdapter(List<Tweet> tweets) {
-        this.layout = R.layout.row_tweet;
         this.list = tweets;
     }
 
     @Override
+    public long getItemId(int position) {
+        return this.list.get(position).getId();
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        Tweet tweet = this.list.get(position);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View tweetRow = inflater.inflate(this.layout, parent, false);
+        View tweetRow;
+
+        if (tweet.retweetedStatus != null) {
+            tweetRow = inflater.inflate(R.layout.row_retweet, parent, false);
+            TextView retweetUserScreenName = (TextView) tweetRow.findViewById(R.id.retweetUserScreenName);
+            retweetUserScreenName.setText("@" + tweet.user.screenName);
+
+            tweet = tweet.retweetedStatus;
+        } else {
+            tweetRow = inflater.inflate(R.layout.row_tweet, parent, false);
+        }
+
         ImageView miniImagenPerfil = (ImageView) tweetRow.findViewById(R.id.miniImagenPerfil);
         TextView userScreenName = (TextView) tweetRow.findViewById(R.id.userScreenName);
         TextView userFullName = (TextView) tweetRow.findViewById(R.id.userFullName);
         TextView tweetText = (TextView) tweetRow.findViewById(R.id.tweetText);
-
-        Tweet tweet = (Tweet) this.list.get(position);
-
-        //TODO tratar retweets
 
         Picasso.with(this.context).load(tweet.user.profileImageUrl).into(miniImagenPerfil);
         userScreenName.setText("@" + tweet.user.screenName);
@@ -43,6 +55,4 @@ public class CustomTweetAdapter extends CustomMainAdapter {
         tweetText.setText(tweet.text);
         return tweetRow;
     }
-
-
 }

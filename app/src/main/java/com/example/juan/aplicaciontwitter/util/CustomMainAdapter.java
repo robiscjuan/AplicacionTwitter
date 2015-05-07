@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Created by Juan on 05/05/2015.
  */
-public abstract class CustomMainAdapter extends BaseAdapter {
+public abstract class CustomMainAdapter<T> extends BaseAdapter {
     protected Context context;
-    protected List<?> list;
+    protected List<T> list;
 
     public Context getContext() {
         return this.context;
@@ -28,11 +28,5 @@ public abstract class CustomMainAdapter extends BaseAdapter {
     @Override
     public Object getItem(int position) {
         return this.list.get(position);
-    }
-
-    //TODO Revisar
-    @Override
-    public long getItemId(int position) {
-        return position;
     }
 }
