@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.juan.aplicaciontwitter.R;
+import com.example.juan.aplicaciontwitter.util.retrofit.TwitterApi;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
@@ -37,10 +39,9 @@ public class LoginActivity extends Activity {
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-
+                TwitterAuthToken authToken = result.data.getAuthToken();
+                TwitterApi.init(authToken.token, authToken.secret);
                 startActivity(intent);
-
-
                 finish();
             }
 
