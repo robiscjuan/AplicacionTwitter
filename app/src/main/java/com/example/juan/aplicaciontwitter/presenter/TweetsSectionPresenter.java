@@ -4,34 +4,35 @@ import android.util.Log;
 
 import com.example.juan.aplicaciontwitter.fragments.MainSectionFragment;
 import com.example.juan.aplicaciontwitter.model.TweetsSectionModel;
-import com.twitter.sdk.android.Twitter;
+import com.example.juan.aplicaciontwitter.util.retrofit.TwitterApi;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.models.Tweet;
-import com.twitter.sdk.android.core.services.StatusesService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Juan on 22/04/2015.
  */
 public class TweetsSectionPresenter extends MainSectionPresenter {
     private TweetsSectionModel model;
-    private StatusesService statusesService;
 
 
     public TweetsSectionPresenter(MainSectionFragment view) {
         model = new TweetsSectionModel();
         this.view = view;
         this.view.setList(model.getTweetList());
-        statusesService = Twitter.getApiClient().getStatusesService();
         loadData();
     }
 
     @Override
     public void loadData() {
-        statusesService.homeTimeline(10, null, null, null, null, null, false, new Callback<List<Tweet>>() {
+        Map<String, String> options = new HashMap<>();
+        options.put("count", "10");
+        TwitterApi.getHomeTimeline(options, new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> listResult) {
                 Log.e("loadData con éxito", "");
@@ -49,7 +50,10 @@ public class TweetsSectionPresenter extends MainSectionPresenter {
     @Override
     public void updateData() {
         Long firstTweetId = model.getTweetList().get(0).getId();
-        statusesService.homeTimeline(10, firstTweetId, null, null, null, null, false, new Callback<List<Tweet>>() {
+        Map<String, String> options = new HashMap<>();
+        options.put("count", "10");
+        options.put("since_id", firstTweetId.toString());
+        TwitterApi.getHomeTimeline(options, new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> listResult) {
                 Log.e("updateData con éxito", "");
@@ -67,7 +71,10 @@ public class TweetsSectionPresenter extends MainSectionPresenter {
     @Override
     public void loadMoreData() {
         Long lastTweetId = model.getTweetList().get(model.getTweetList().size() - 1).getId();
-        statusesService.homeTimeline(10, null, lastTweetId, null, null, null, false, new Callback<List<Tweet>>() {
+        Map<String, String> options = new HashMap<>();
+        options.put("count", "10");
+        options.put("max_id", lastTweetId.toString());
+        TwitterApi.getHomeTimeline(options, new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> listResult) {
                 Log.e("loadMoreData con éxito", "");
