@@ -45,6 +45,7 @@ public class TweetsSectionPresenter extends MainSectionPresenter {
                 Log.e("Timeline con fracaso", "");
             }
         });
+
     }
 
     @Override

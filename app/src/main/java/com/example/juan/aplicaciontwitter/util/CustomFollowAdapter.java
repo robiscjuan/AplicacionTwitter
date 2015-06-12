@@ -18,9 +18,11 @@ import java.util.List;
  * Created by Juan on 12/05/2015.
  */
 public class CustomFollowAdapter extends CustomMainAdapter<User> {
+    private boolean follow;
 
-    public CustomFollowAdapter(List<User> users) {
+    public CustomFollowAdapter(List<User> users, boolean follow) {
         this.list = users;
+        this.follow = follow;
     }
 
     @Override
@@ -40,11 +42,13 @@ public class CustomFollowAdapter extends CustomMainAdapter<User> {
         TextView userFullName = (TextView) userRow.findViewById(R.id.userFullName);
         Button actionButton = (Button) userRow.findViewById(R.id.actionButton);
 
-        actionButton.setText("Follow");
+        if (follow)
+            actionButton.setText("Follow");
+        else
+            actionButton.setText("Unfollow");
         Picasso.with(this.context).load(user.profileImageUrl).into(miniImagenPerfil);
         userScreenName.setText("@" + user.screenName);
         userFullName.setText(user.name);
-
         return userRow;
     }
 }

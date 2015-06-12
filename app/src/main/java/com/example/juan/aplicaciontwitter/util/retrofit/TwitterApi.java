@@ -4,6 +4,7 @@ import com.example.juan.aplicaciontwitter.util.signpost.retrofit.RetrofitHttpOAu
 import com.example.juan.aplicaciontwitter.util.signpost.retrofit.SigningOkClient;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.models.User;
 
 import java.util.List;
 import java.util.Map;
@@ -31,11 +32,22 @@ public class TwitterApi {
                 .setEndpoint("https://api.twitter.com/1.1")
                 .setClient(client)
                 .build();
-
         service = adapter.create(TwitterApiService.class);
     }
 
     public static void getHomeTimeline(Map<String, String> options, Callback<List<Tweet>> cb) {
         service.getHomeTimeline(options, cb);
+    }
+
+    public static void getFollowing(Map<String, String> options, Callback<Ids> cb) {
+        service.getFollowing(options, cb);
+    }
+
+    public static void getFollowers(Map<String, String> options, Callback<Ids> cb) {
+        service.getFollowers(options, cb);
+    }
+
+    public static void getUsers(Map<String, String> options, Callback<List<User>> cb) {
+        service.getUsers(options, cb);
     }
 }
