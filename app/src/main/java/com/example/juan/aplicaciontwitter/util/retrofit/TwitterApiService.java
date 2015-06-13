@@ -38,4 +38,8 @@ public interface TwitterApiService {
     @POST("/friendships/destroy.json")
     void postUnfollow(@FieldMap Map<String, String> options, Callback<User> cb);
 
+    @FormUrlEncoded
+    @POST("/friendships/create.json")
+    void postFollow(@FieldMap Map<String, String> options, Callback<User> cb);
+
 }

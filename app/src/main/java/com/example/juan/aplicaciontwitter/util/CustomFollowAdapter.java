@@ -50,31 +50,53 @@ public class CustomFollowAdapter extends CustomMainAdapter<User> {
         TextView userFullName = (TextView) userRow.findViewById(R.id.userFullName);
         final Button actionButton = (Button) userRow.findViewById(R.id.actionButton);
 
-        if (follow)
+        if (follow) {
             actionButton.setText("Follow");
-        else
-            actionButton.setText("Unfollow");
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Map<String, String> options = new HashMap<>();
-                options.put("user_id", String.valueOf(user.id));
-                TwitterApi.postUnfollow(options, new Callback<User>() {
-                    @Override
-                    public void success(Result<User> userResult) {
-                        Log.d("Debug", "Se ha publicado el tweet");
-                        Log.d("Debug", userResult.data.name);
-                        actionButton.setText("Unfollowed");
-                        actionButton.setEnabled(false);
-                        Toast.makeText(context, "Unfollowed", Toast.LENGTH_SHORT).show();
-                    }
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Map<String, String> options = new HashMap<>();
+                    options.put("user_id", String.valueOf(user.id));
+                    TwitterApi.postUnfollow(options, new Callback<User>() {
+                        @Override
+                        public void success(Result<User> userResult) {
+                            Log.d("Debug", "Se ha empezado a seguir al usuario");
+                            Log.d("Debug", userResult.data.name);
+                            actionButton.setText("Followed");
+                            actionButton.setEnabled(false);
+                            Toast.makeText(context, "Followed", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void failure(TwitterException e) {
-                        Log.e("Error", e.getMessage());
-                    }
-                });
-            }
-        });
+                        @Override
+                        public void failure(TwitterException e) {
+                            Log.e("Error", e.getMessage());
+                        }
+                    });
+                }
+            });
+        } else {
+            actionButton.setText("Unfollow");
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Map<String, String> options = new HashMap<>();
+                    options.put("user_id", String.valueOf(user.id));
+                    TwitterApi.postUnfollow(options, new Callback<User>() {
+                        @Override
+                        public void success(Result<User> userResult) {
+                            Log.d("Debug", "Se ha dejado de seguir al usuario");
+                            Log.d("Debug", userResult.data.name);
+                            actionButton.setText("Unfollowed");
+                            actionButton.setEnabled(false);
+                            Toast.makeText(context, "Unfollowed", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void failure(TwitterException e) {
+                            Log.e("Error", e.getMessage());
+                        }
+                    });
+                }
+            });
+        }
         Picasso.with(this.context).load(user.profileImageUrl).into(miniImagenPerfil);
         userScreenName.setText("@" + user.screenName);
         userFullName.setText(user.name);

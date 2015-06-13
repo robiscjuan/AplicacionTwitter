@@ -56,4 +56,8 @@ public class TwitterApi {
     public static void postUnfollow(Map<String, String> options, Callback<User> cb) {
         service.postUnfollow(options, cb);
     }
+
+    public static void postFollow(Map<String, String> options, Callback<User> cb) {
+        service.postUnfollow(options, cb);
+    }
 }
