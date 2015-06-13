@@ -11,21 +11,20 @@ import java.util.Map;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
+import retrofit.http.QueryMap;
 
 /**
  * Created by Alan Mark on 5/22/2015.
  */
 public class TwitterApi {
 
-    private static final String TWITTER_KEY = "YkSUSp1BiT8Bk7MydRsoKhtdT";
-    private static final String TWITTER_SECRET = "zhHUz6LbS09dXIXPBGkRi659uErRIUnfpBJvQggqbV9OQPs0uk";
     private static TwitterApiService service = null;
 
     private TwitterApi() {
     }
 
-    public static void init(String token, String tokenSecret) {
-        RetrofitHttpOAuthConsumer oAuthConsumer = new RetrofitHttpOAuthConsumer(TWITTER_KEY, TWITTER_SECRET);
+    public static void init(String key, String secret, String token, String tokenSecret) {
+        RetrofitHttpOAuthConsumer oAuthConsumer = new RetrofitHttpOAuthConsumer(key, secret);
         oAuthConsumer.setTokenWithSecret(token, tokenSecret);
         OkClient client = new SigningOkClient(oAuthConsumer);
         RestAdapter adapter = new RestAdapter.Builder()
@@ -49,5 +48,9 @@ public class TwitterApi {
 
     public static void getUsers(Map<String, String> options, Callback<List<User>> cb) {
         service.getUsers(options, cb);
+    }
+
+    public static void postStatus(@QueryMap Map<String, String> options, Callback<Tweet> cb) {
+        service.postStatus(options, cb);
     }
 }

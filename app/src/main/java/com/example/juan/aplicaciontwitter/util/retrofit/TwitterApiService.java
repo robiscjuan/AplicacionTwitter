@@ -7,7 +7,10 @@ import com.twitter.sdk.android.core.models.User;
 import java.util.List;
 import java.util.Map;
 
+import retrofit.http.FieldMap;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.QueryMap;
 
 /**
@@ -26,5 +29,9 @@ public interface TwitterApiService {
 
     @GET("/users/lookup.json")
     void getUsers(@QueryMap Map<String, String> options, Callback<List<User>> cb);
+
+    @FormUrlEncoded
+    @POST("/statuses/update.json")
+    void postStatus(@FieldMap Map<String, String> options, Callback<Tweet> cb);
 
 }

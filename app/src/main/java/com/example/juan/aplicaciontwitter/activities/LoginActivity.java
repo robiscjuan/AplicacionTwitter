@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
             @Override
             public void success(Result<TwitterSession> result) {
                 TwitterAuthToken authToken = result.data.getAuthToken();
-                TwitterApi.init(authToken.token, authToken.secret);
+                TwitterApi.init(TWITTER_KEY, TWITTER_SECRET, authToken.token, authToken.secret);
                 startActivity(intent);
                 finish();
             }
