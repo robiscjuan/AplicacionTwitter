@@ -47,7 +47,7 @@ public class CustomTweetAdapter extends CustomMainAdapter<Tweet> {
         if (tweet.retweetedStatus != null) {
             tweetRow = inflater.inflate(R.layout.row_retweet, parent, false);
             TextView retweetUserScreenName = (TextView) tweetRow.findViewById(R.id.retweetUserScreenName);
-            retweetUserScreenName.setText("@" + tweet.user.screenName);
+            retweetUserScreenName.setText("Retwiteado por @" + tweet.user.screenName);
 
             tweet = tweet.retweetedStatus;
         } else {

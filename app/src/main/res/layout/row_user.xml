@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageView
@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="2"
         android:orientation="vertical">
 
@@ -22,8 +22,7 @@
             android:id="@+id/userScreenName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Large Text"/>
 
         <TextView
             android:id="@+id/userFullName"
@@ -35,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="2"
         android:orientation="vertical">
 
@@ -44,7 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Texto" />
+            android:text="Texto"
+            style="@style/tw__Button.Light"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
