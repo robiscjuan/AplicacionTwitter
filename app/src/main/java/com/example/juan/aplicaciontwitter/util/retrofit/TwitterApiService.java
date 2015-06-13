@@ -1,12 +1,12 @@
 package com.example.juan.aplicaciontwitter.util.retrofit;
 
-import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.core.models.User;
 
 import java.util.List;
 import java.util.Map;
 
+import retrofit.Callback;
 import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
@@ -33,5 +33,9 @@ public interface TwitterApiService {
     @FormUrlEncoded
     @POST("/statuses/update.json")
     void postStatus(@FieldMap Map<String, String> options, Callback<Tweet> cb);
+
+    @FormUrlEncoded
+    @POST("/friendships/destroy.json")
+    void postUnfollow(@FieldMap Map<String, String> options, Callback<User> cb);
 
 }
