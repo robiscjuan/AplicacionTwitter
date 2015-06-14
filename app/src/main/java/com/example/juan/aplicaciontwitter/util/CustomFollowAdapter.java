@@ -56,7 +56,7 @@ public class CustomFollowAdapter extends CustomMainAdapter<User> {
                 public void onClick(View v) {
                     Map<String, String> options = new HashMap<>();
                     options.put("user_id", String.valueOf(user.id));
-                    TwitterApi.postUnfollow(options, new Callback<User>() {
+                    TwitterApi.postFollow(options, new Callback<User>() {
                         @Override
                         public void success(Result<User> userResult) {
                             Log.d("Debug", "Se ha empezado a seguir al usuario");

@@ -68,4 +68,12 @@ public class TwitterApi {
     public static void postFavorite(Map<String, String> options, Callback<Tweet> cb) {
         service.postFavorite(options, cb);
     }
+
+    public static void getStatuses(Map<String, String> options, Callback cb){
+        service.getStatuses(options, cb);
+    }
+
+    public static void getStatusRetweeters(Map<String, String> options, Callback<Ids> cb){
+        service.getStatusRetweeters(options, cb);
+    }
 }

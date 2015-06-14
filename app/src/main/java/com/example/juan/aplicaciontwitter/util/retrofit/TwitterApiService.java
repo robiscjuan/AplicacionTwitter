@@ -1,5 +1,6 @@
 package com.example.juan.aplicaciontwitter.util.retrofit;
 
+import com.squareup.okhttp.Call;
 import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.core.models.User;
 
@@ -51,4 +52,9 @@ public interface TwitterApiService {
     @POST("/favorites/create.json")
     void postFavorite(@FieldMap Map<String, String> options, Callback<Tweet> cb);
 
+    @GET("/statuses/user_timeline.json")
+    void getStatuses(@QueryMap Map<String, String> options, Callback<List<Tweet>> cb);
+
+    @GET("/statuses/retweeters/ids.json")
+    void getStatusRetweeters(@QueryMap Map<String, String> option, Callback<Ids> cb);
 }

@@ -14,6 +14,7 @@ public abstract class MainSectionPresenter {
 
     //Top
     public void updateData() {
+
     }
 
     //Down
