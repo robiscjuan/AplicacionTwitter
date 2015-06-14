@@ -11,6 +11,7 @@ import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import retrofit.http.QueryMap;
 
 /**
@@ -41,5 +42,13 @@ public interface TwitterApiService {
     @FormUrlEncoded
     @POST("/friendships/create.json")
     void postFollow(@FieldMap Map<String, String> options, Callback<User> cb);
+
+    @FormUrlEncoded
+    @POST("/statuses/retweet/{id}.json")
+    void postRetweet(@Path("id") long id, @FieldMap Map<String, String> options, Callback<Tweet> cb);
+
+    @FormUrlEncoded
+    @POST("/favorites/create.json")
+    void postFavorite(@FieldMap Map<String, String> options, Callback<Tweet> cb);
 
 }

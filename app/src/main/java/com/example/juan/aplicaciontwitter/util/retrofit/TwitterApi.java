@@ -58,6 +58,14 @@ public class TwitterApi {
     }
 
     public static void postFollow(Map<String, String> options, Callback<User> cb) {
-        service.postUnfollow(options, cb);
+        service.postFollow(options, cb);
+    }
+
+    public static void postRetweet(long id, Map<String, String> options, Callback<Tweet> cb) {
+        service.postRetweet(id, options, cb);
+    }
+
+    public static void postFavorite(Map<String, String> options, Callback<Tweet> cb) {
+        service.postFavorite(options, cb);
     }
 }
