@@ -1,6 +1,5 @@
 package com.example.juan.aplicaciontwitter.model;
 
-import com.example.juan.aplicaciontwitter.util.retrofit.Ids;
 import com.twitter.sdk.android.core.models.User;
 
 import java.util.ArrayList;
@@ -35,5 +34,9 @@ public class FollowSectionModel {
     }
         public List<User> getUserList() {
         return userList;
+    }
+
+    public void updateTweetList(List<User> userList) {
+        this.userList.addAll(0, userList);
     }
 }

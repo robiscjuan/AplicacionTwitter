@@ -94,7 +94,62 @@ public class FollowSectionPresenter extends MainSectionPresenter {
 
     @Override
     public void updateData() {
+        final Map<String, String> options = new HashMap<>();
+        final Map<String, String> optionsF = new HashMap<>();
+        final Map<String, String> optionsU = new HashMap<>();
+        options.put("count", "1");
+        options.put("include_rts", "false");
+        optionsF.put("stringify_ids", "false");
+        //for (int i=0;i<cuentas.length;i++) {
+        options.put("screen_name", cuentas[0]);
+        TwitterApi.getStatuses(options, new Callback<List<Tweet>>() {
+            @Override
+            public void success(Result<List<Tweet>> listResult) {
+                if (listResult.data.iterator().hasNext()) {
+                    optionsF.put("id", String.valueOf(listResult.data.iterator().next().getId()));
+                    TwitterApi.getStatusRetweeters(optionsF, new Callback<Ids>() {
+                        @Override
+                        public void success(Result<Ids> idsResult) {
+                            Iterator usersI = idsResult.data.getIds().iterator();
+                            String user_id = "";
+                            for (int i = 0; i < 50; i++) {
+                                if (usersI.hasNext()) {
+                                    user_id = user_id + usersI.next() + ",";
+                                } else {
+                                    break;
+                                }
+                            }
+                            if (usersI.hasNext())
+                                user_id = user_id + usersI.next();          //TODO Se permite MAX 100 ids según la API
+                            optionsU.put("user_id", user_id);
+                            TwitterApi.getUsers(optionsU, new Callback<List<User>>() {
+                                @Override
+                                public void success(Result<List<User>> listResult) {
+                                    model.updateTweetList(listResult.data);
+                                    view.updateView();
+                                }
 
+                                @Override
+                                public void failure(TwitterException e) {
+                                    Log.e("Fallo update users", "");
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void failure(TwitterException e) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                Log.e("Timeline con fracaso", "");
+            }
+        });
+        //}
     }
 
     @Override

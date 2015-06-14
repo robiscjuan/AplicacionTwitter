@@ -55,5 +55,9 @@ public class UnfollowSectionModel {
         return userList;
     }
 
+    public void updateTweetList(List<User> userList) {
+        this.userList.addAll(0, userList);
+    }
+
 }
 

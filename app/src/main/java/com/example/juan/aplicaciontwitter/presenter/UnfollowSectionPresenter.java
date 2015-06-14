@@ -90,7 +90,61 @@ public class UnfollowSectionPresenter extends MainSectionPresenter {
 
     @Override
     public void updateData() {
+        final Map<String, String> options = new HashMap<>();
+        final Map<String, String> optionsU = new HashMap<>();
+        options.put("count", "50");
+        options.put("stringify_ids", "false");
+        TwitterApi.getFollowing(options, new Callback<Ids>() {
+            @Override
+            public void success(final Result<Ids> Result) {
+                Log.e("updateData con éxito", "");
+                model.loadFollowingIdsObject(Result.data);
+                model.loadFilteredFollowingIdsObject(Result.data);
+                TwitterApi.getFollowers(options, new Callback<Ids>() {
+                    @Override
+                    public void success(Result<Ids> idsResult) {
+                        model.loadFollowersIdsObject(idsResult.data);
+                        model.getFilteredFollowingIdsObject().getIds().removeAll(model.getFollowersIdsObject().getIds());
+                        Iterator usersI = model.getFilteredFollowingIdsObject().getIds().iterator();
+                        String user_id = "";
+                        for (int i = 0; i < 50; i++) {
+                            if (usersI.hasNext()) {
+                                user_id = user_id + usersI.next() + ",";
+                            } else {
+                                break;
+                            }
+                        }
+                        if (usersI.hasNext())
+                            user_id = user_id + usersI.next();          //TODO Se permite MAX 100 ids según la API
+                        optionsU.put("user_id", user_id);
+                        TwitterApi.getUsers(optionsU, new Callback<List<User>>() {
+                            @Override
+                            public void success(Result<List<User>> listResult) {
+                                model.updateTweetList(listResult.data);
+                                view.updateView();
+                            }
 
+                            @Override
+                            public void failure(TwitterException e) {
+                                Log.e("Fallo update users", "");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void failure(TwitterException e) {
+                        Log.e("Fallo update followers", "");
+                    }
+                });
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                Log.e("Fallo Unfollowfollowing", "");
+            }
+        });
+
+        Log.e("s", "");
     }
 
     @Override
